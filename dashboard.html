@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Farmer Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="menu-icon" id="menu-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+        <path d="M4 5h16M4 12h16m-16 7h16" stroke="black" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </div>
+
+    <img src="./IMG-20240909-WA0016-removebg-preview (1).png" alt="Logo" class="logo">
+    <button class="logout-btn">Logout</button>
+  </div>
+
+  <div class="main-content">
+    <div class="products">
+      <button class="product-btn" data-category="vegetables">Vegetables</button>
+      <button class="product-btn" data-category="fruits">Fruits</button>
+      <button class="product-btn" data-category="pulses">Pulses</button>
+      <button class="product-btn" data-category="rawProducts">Raw Products</button>
+    </div>
+
+    <div class="product-display" id="product-display"></div>
+
+    <!-- This section will display the selected product details -->
+    <div class="selected-products" id="selected-products">
+      <h3>Selected Products</h3>
+      <ul id="product-list"></ul>
+      <div id="total-amount"></div>
+      <strong>Total Amount:</strong> <span id="total-amount-value">₹0.00</span>
+    </div>
+
+    <!-- Sell Products Button -->
+    <button id="checkout-btn" style="display: none;">Sell Products</button>
+  </div>
+
+  <script>
+    // Products data
+    const products = {
+      vegetables: [
+        { name: "Tomato", image: "Images/Tomato.jpg" },
+        { name: "Potato", image: "Images/Potato.jpg" },
+        { name: "Onion", image: "Images/Onion.jpg" },
+        { name: "Carrot", image: "Images/Carrot.jpg" }
+      ],
+      fruits: [
+        { name: "Apple", image: "Images/Apple.jpg" },
+        { name: "Banana", image: "Images/Banana.jpg" },
+        { name: "Orange", image: "Images/Orange.jpg" },
+        { name: "Mango", image: "Images/Mango.jpg" }
+      ],
+      pulses: [
+        { name: "Lentils", image: "Images/Lentils.jpg" },
+        { name: "Chickpeas", image: "Images/ChickPeas.jpg" },
+        { name: "Green Gram", image: "Images/Kidney Beans.jpg" },
+        { name: "Black Gram", image: "Images/BlackBeans.jpg" }
+      ],
+      rawProducts: [
+        { name: "Wheat", image: "Images/Wheat.jpg" },
+        { name: "Rice", image: "Images/Rice.jpg" },
+        { name: "Barley", image: "Images/Barley.jpg" },
+        { name: "Oats", image: "Images/Oats.jpg" }
+      ]
+    };
+
+    // DOM elements
+    const productDisplay = document.getElementById('product-display');
+    const buttons = document.querySelectorAll('.product-btn');
+    const productList = document.getElementById('product-list');
+    const totalAmountValue = document.getElementById('total-amount-value');
+    const logoutButton = document.querySelector('.logout-btn');
+    const checkoutButton = document.getElementById('checkout-btn');
+
+    // Initialize total amount
+    let totalAmount = 0;
+
+    // Function to display products based on the selected category
+    buttons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const category = e.target.getAttribute('data-category');
+        displayProducts(category);
+      });
+    });
+
+    function displayProducts(category) {
+      const productsList = products[category];
+      productDisplay.innerHTML = '';
+
+      productsList.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.className = 'product-item';
+
+        productElement.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <div class="product-info">
+                <p>${product.name}</p>
+                <label for="${product.name}-weight">Weight (kg):</label>
+                <input type="number" id="${product.name}-weight" value="1" min="1" step="0.1">
+                <label for="${product.name}-price">Price (per kg):</label>
+                <input type="number" id="${product.name}-price" value="100" min="0" step="0.1">
+                <button class="add-btn" data-product="${product.name}">Add</button>
+            </div>
+        `;
+
+        productDisplay.appendChild(productElement);
+      });
+
+      // Add event listener for the 'Add' button
+      const addButtons = document.querySelectorAll('.add-btn');
+      addButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          const productName = e.target.getAttribute('data-product');
+          const quantityInput = document.getElementById(`${productName}-weight`);
+          const priceInput = document.getElementById(`${productName}-price`);
+          const quantity = parseFloat(quantityInput.value);
+          const price = parseFloat(priceInput.value);
+          const totalAmountForProduct = quantity * price;
+
+          // Call function to display the selected product details
+          addToCart(productName, quantity, totalAmountForProduct);
+
+          // Update the total amount
+          updateTotalAmount(totalAmountForProduct);
+
+          // Show the "Sell Product" button
+          checkoutButton.style.display = 'block';
+        });
+      });
+    }
+
+    // Function to display the product details at the bottom
+    function addToCart(productName, quantity, totalAmountForProduct) {
+      const listItem = document.createElement('li');
+      listItem.textContent = `Product: ${productName}, Quantity: ${quantity} kg, Amount: ₹${totalAmountForProduct.toFixed(2)}`;
+      productList.appendChild(listItem);
+    }
+
+    // Function to update the total amount displayed on the page
+    function updateTotalAmount(amount) {
+      totalAmount += amount;
+      totalAmountValue.textContent = `₹${totalAmount.toFixed(2)}`;
+    }
+
+    // Add event listener to the logout button to redirect to farmerlogin.html
+    logoutButton.addEventListener('click', () => {
+      window.location.href = "farmerlogin.html"; // Redirect to farmerlogin.html
+    });
+
+    // Add event listener to the checkout button
+    checkoutButton.addEventListener('click', () => {
+      // Show the alert when the button is clicked
+      alert("Your products are listed successfully");
+
+      // After the alert, reset the selected products and total amount
+      resetSelectedProducts();
+    });
+
+    // Function to reset selected products and total amount
+    function resetSelectedProducts() {
+      // Clear the product list (selected products)
+      productList.innerHTML = '';
+
+      // Reset total amount to 0
+      totalAmount = 0;
+      totalAmountValue.textContent = '₹0.00';
+
+      // Hide the checkout button again
+      checkoutButton.style.display = 'none';
+    }
+
+  </script>
+</body>
+
+</html>

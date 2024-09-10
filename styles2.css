@@ -1,0 +1,197 @@
+/* Customer Registration Form Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #DEF9C4, #9CDBA6); /* Background gradient */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  /* Decorative circles to enhance the page */
+  .decorative {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.7;
+  }
+  
+  .decorative.left {
+    background-color: #50B498;
+    width: 300px;
+    height: 300px;
+    top: 20%;
+    left: -150px;
+  }
+  
+  .decorative.right {
+    background-color: #468585;
+    width: 200px;
+    height: 200px;
+    bottom: 20%;
+    right: -100px;
+  }
+  
+  .container {
+    text-align: center;
+    padding: 30px;
+    background-color: #fff; /* Set container to white for contrast */
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+    border: 2px solid #9CDBA6; /* Border around container */
+    z-index: 1;
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  h1 {
+    color: #468585;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  label {
+    color: #468585;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+  }
+  
+  button[type="submit"],
+  button#send-otp {
+    background-color: #468585;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow to buttons */
+  }
+  
+  button[type="submit"]:hover,
+  button#send-otp:hover {
+    background-color: #50B498;
+  }
+  
+  /* Decorative circles from the original design */
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #DEF9C4;
+    opacity: 0.8;
+  }
+  
+  .circle.large {
+    width: 400px;
+    height: 400px;
+    top: -150px;
+    right: -150px;
+    background-color: #9CDBA6;
+  }
+  
+  .circle.small {
+    width: 200px;
+    height: 200px;
+    bottom: -50px;
+    left: -50px;
+    background-color: #50B498;
+  }
+  
+  /* Media queries for responsiveness */
+  
+  /* For screens smaller than 768px (tablets) */
+  @media (max-width: 768px) {
+    .container {
+      width: 90%; /* Adjust width for tablets */
+    }
+  
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%; /* Ensure form fields use full width */
+    }
+  
+    button[type="submit"],
+    button#send-otp {
+      width: 100%; /* Ensure buttons use full width */
+    }
+  }
+  
+  /* For screens smaller than 480px (mobile phones) */
+  @media (max-width: 480px) {
+    .container {
+      width: 95%; /* Full-width for mobile */
+      padding: 20px; /* Reduced padding */
+    }
+  
+    h1 {
+      font-size: 24px; /* Reduce font size for smaller screens */
+    }
+  
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="number"] {
+      width: 95%; /* Form fields are wider */
+      font-size: 14px; /* Adjust font size for readability */
+    }
+  
+    button[type="submit"],
+    button#send-otp {
+      width: 95%; /* Buttons are wider */
+      padding: 10px; /* Adjust padding for mobile */
+      font-size: 16px; /* Adjust button font size */
+    }
+  }
+  
+  /* For screens smaller than 380px (small mobile phones) */
+  @media (max-width: 380px) {
+    .container {
+      padding: 15px; /* Further reduce padding */
+    }
+  
+    h1 {
+      font-size: 20px; /* Smaller font size for headings */
+    }
+  
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="number"] {
+      width: 90%; /* Maximize space usage */
+      font-size: 12px; /* Smaller font for inputs */
+    }
+  
+    button[type="submit"],
+    button#send-otp {
+      width: 90%; /* Reduce button width */
+      font-size: 14px; /* Smaller font for buttons */
+    }
+  }
+  

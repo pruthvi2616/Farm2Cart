@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Select User Type</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="background-elements">
+    <div class="circle large"></div>
+    <div class="circle small"></div>
+  </div>
+  
+  <div class="diagonal-lines"></div> <!-- Added div for diagonal lines -->
+  <img class="logo" src="./IMG-20240909-WA0016-removebg-preview (1).png">
+  <div class="container">
+    <h1>Welcome to Farm2Mart</h1>
+    <p class="intro-text">
+        Please select your role to continue
+    </p>
+    <div class="buttons">
+        <a href="farmer.html" class="user-button">
+            I am a Farmer
+          </a> 
+          <a href="agent.html" class="user-button">
+            I am an Agent
+          </a>          
+          <a href="customer.html" class="user-button">
+            I am a Customer
+          </a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('farmer-btn').addEventListener('click', function() {
+      window.location.href = 'farmer_registration.html'; // Redirect to Farmer page
+    });
+
+    document.getElementById('customer-btn').addEventListener('click', function() {
+      window.location.href = 'customer_registration.html'; // Redirect to Customer page
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #DEF9C4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  text-align: center;
+  padding: 20px; /* Reduced padding for mobile */
+  background-color: #9CDBA6;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  width: 90%; /* Increased width for mobile */
+  max-width: 600px;
+}
+
+h1 {
+  color: #468585;
+  margin-bottom: 1.5em; /* Reduced margin for mobile */
+  font-size: 1.5em; /* Increased font size for mobile */
+}
+
+.intro-text {
+  color: rgb(42, 96, 96);
+  margin-bottom: 1.5em; /* Reduced margin for mobile */
+  font-size: 1em; /* Increased font size for mobile */
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  flex-wrap: wrap; /* Added flex-wrap for mobile */
+  gap: 20px;
+}
+
+.buttons a {
+  text-decoration: none;
+}
+
+.user-button {
+  background-color: #50B498;
+  color: white;
+  padding: 1.5em 2em; /* Increased padding for larger buttons */
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em; /* Increased font size for larger buttons */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.user-button:hover {
+  background-color: #468585;
+  transform: scale(1.1);
+}
+
+.logo {
+  position: absolute;
+  top: 10px; /* Adjusted top position for mobile */
+  left: 50%; /* Centered logo for mobile */
+  transform: translateX(-50%); /* Centered logo for mobile */
+  z-index: 2;
+  max-width: 30%; /* Made logo responsive */
+  height: auto;
+}
+
+.background-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #DEF9C4;
+  opacity: 0.8;
+}
+
+.circle.large {
+  width: 30vw; /* Made circle size relative to viewport */
+  height: 30vw;
+  top: -10vw;
+  right: -10vw;
+  background-color: #9CDBA6;
+}
+
+.circle.small {
+  width: 15vw; /* Made circle size relative to viewport */
+  height: 15vw;
+  bottom: -5vw;
+  left: -5vw;
+  background-color: #50B498;
+}
+
+.diagonal-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.diagonal-lines::before,
+.diagonal-lines::after {
+  content: '';
+  position: absolute;
+  width: 10vw; /* Made diagonal lines responsive */
+  height: 1vw; /* Made diagonal lines responsive */
+  background-color: #468585;
+  border-radius: 10px;
+  transform: rotate(135deg);
+}
+
+.diagonal-lines::before {
+  top: 40px;
+  left: -30px;
+}
+
+.diagonal-lines::after {
+  top: 60px;
+  left: -80px;
+  width: 30vw; /* Made diagonal lines responsive */
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .user-button {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .logo {
+    height: 80px;
+  }
+
+  .circle.large {
+    width: 250px;
+    height: 250px;
+  }
+
+  .circle.small {
+    width: 120px;
+    height: 120px;
+  }
+}

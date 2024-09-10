@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Page</title>
+    <link rel="stylesheet" href="customer1.css">
+</head>
+
+<body>
+    <header>
+        <img src="IMG-20240909-WA0016-removebg-preview (1).png" alt="Market Logo" class="logo">
+        <h1>Welcome to the Market</h1>
+        <div class="cart" id="cartIcon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000"
+                fill="none">
+                <path
+                    d="M8 16H15.2632C19.7508 16 20.4333 13.1808 21.261 9.06908C21.4998 7.88311 21.6192 7.29013 21.3321 6.89507C21.045 6.5 20.4947 6.5 19.3941 6.5H6"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M8 16L5.37873 3.51493C5.15615 2.62459 4.35618 2 3.43845 2H2.5" stroke="currentColor"
+                    stroke-width="1.5" stroke-linecap="round" />
+                <path d="M8.88 16H8.46857C7.10522 16 6 17.1513 6 18.5714C6 18.8081 6.1842 19 6.41143 19H17.5"
+                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="10.5" cy="20.5" r="1.5" stroke="currentColor" stroke-width="1.5" />
+                <circle cx="17.5" cy="20.5" r="1.5" stroke="currentColor" stroke-width="1.5" />
+            </svg>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-section">
+            <div class="product-card">
+                <h2>Vegetables</h2>
+                <button id="vegetablesBtn">Select Vegetables</button>
+            </div>
+            <div class="product-card">
+                <h2>Fruits</h2>
+                <button id="fruitsBtn">Select Fruits</button>
+            </div>
+            <div class="product-card">
+                <h2>Pulses</h2>
+                <button id="pulsesBtn">Select Pulses</button>
+            </div>
+            <div class="product-card">
+                <h2>Raw Products</h2>
+                <button id="rawProductsBtn">Select Raw Products</button>
+            </div>
+        </section>
+
+        <!-- This is where the selected products will be displayed -->
+        <section id="productDisplay"></section>
+    </main>
+
+    <!-- Cart Dropdown -->
+    <!-- Cart Dropdown -->
+    <div id="cartDropdown" class="cart-dropdown">
+        <div class="cart-header">
+            <h2>Cart</h2>
+            <button id="closeCart" class="close-cart">&times;</button>
+        </div>
+        <ul id="cartItems"></ul>
+        <p>Total: ₹<span id="cartTotal">0</span></p>
+    </div>
+
+
+
+
+    <script>
+        const productData = {
+            vegetables: [
+                { name: "Tomato", image: "Images/Tomato.jpg", weight: "2kg", price: "100" },
+                { name: "Potato", image: "Images/Potato.jpg", weight: "2kg", price: "100" },
+                { name: "Onion", image: "Images/Onion.jpg", weight: "2kg", price: "100" },
+                { name: "Carrot", image: "Images/Carrot.jpg", weight: "2kg", price: "100" }
+            ],
+            fruits: [
+                { name: "Apple", image: "Images/Apple.jpg", weight: "2kg", price: "100" },
+                { name: "Banana", image: "Images/Banana.jpg", weight: "2kg", price: "100" },
+                { name: "Orange", image: "Images/Orange.jpg", weight: "2kg", price: "100" },
+                { name: "Mango", image: "Images/Mango.jpg", weight: "2kg", price: "100" }
+            ],
+            pulses: [
+                { name: "Lentils", image: "Images/Lentils.jpg", weight: "2kg", price: "100" },
+                { name: "Chickpeas", image: "Images/ChickPeas.jpg", weight: "2kg", price: "100" },
+                { name: "Green Gram", image: "Images/Kidney Beans.jpg", weight: "2kg", price: "100" },
+                { name: "Black Gram", image: "Images/BlackBeans.jpg", weight: "2kg", price: "100" }
+            ],
+            rawProducts: [
+                { name: "Wheat", image: "Images/Wheat.jpg", weight: "2kg", price: "100" },
+                { name: "Rice", image: "Images/Rice.jpg", weight: "2kg", price: "100" },
+                { name: "Barley", image: "Images/Barley.jpg", weight: "2kg", price: "100" },
+                { name: "Oats", image: "Images/Oats.jpg", weight: "2kg", price: "100" }
+            ]
+        };
+
+
+        function displayProducts(category) {
+            const productDisplay = document.getElementById("productDisplay");
+            if (!productDisplay) {
+                console.error("Product display element not found!");
+                return;
+            }
+            productDisplay.innerHTML = ""; // Clear previous items
+
+            productData[category].forEach(item => {
+                const productItem = document.createElement("div");
+                productItem.className = "product-item";
+                productItem.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div>
+                <h3>${item.name}</h3>
+                <p>Weight: ${item.weight}</p>
+                <p>Price: ₹${item.price}</p> <!-- Added price -->
+            </div>
+            <div class="quantity-controls">
+                <button onclick="decreaseQuantity(this)">-1</button>
+                <span>0</span>
+                <button onclick="increaseQuantity(this)">+1</button>
+            </div>
+            <button class="add-to-cart">Add to Cart</button>
+        `;
+                productDisplay.appendChild(productItem);
+            });
+            console.log(`${category} items displayed`); // Debugging line
+        }
+
+
+        function updateQuantity(name, delta) {
+            const quantityElement = document.getElementById(`quantity-${name}`);
+            let quantity = parseInt(quantityElement.getAttribute('data-quantity'));
+            quantity = Math.max(0, quantity + delta); // Ensure quantity doesn't go below 0
+            quantityElement.setAttribute('data-quantity', quantity);
+            quantityElement.textContent = quantity;
+        }
+
+        function decreaseQuantity(button) {
+            const quantityElement = button.nextElementSibling;
+            let quantity = parseInt(quantityElement.textContent);
+            if (quantity > 0) {
+                quantityElement.textContent = quantity - 1;
+            }
+        }
+
+        function increaseQuantity(button) {
+            const quantityElement = button.previousElementSibling; // This should be the span element
+            let quantity = parseInt(quantityElement.textContent);
+            quantityElement.textContent = quantity + 1; // Update the quantity
+        }
+
+        function addToCart(name) {
+            const quantity = document.getElementById(`quantity-${name}`).getAttribute('data-quantity');
+            console.log(`${name}: ${quantity} added to cart`);
+        }
+
+        document.getElementById('vegetablesBtn').addEventListener('click', () => displayProducts('vegetables'));
+        document.getElementById('fruitsBtn').addEventListener('click', () => displayProducts('fruits'));
+        document.getElementById('pulsesBtn').addEventListener('click', () => displayProducts('pulses'));
+        document.getElementById('rawProductsBtn').addEventListener('click', () => displayProducts('rawProducts'));
+
+        const cart = [];
+
+        // Display products based on category
+        function displayProducts(category) {
+            const productDisplay = document.getElementById("productDisplay");
+            if (!productDisplay) {
+                console.error("Product display element not found!");
+                return;
+            }
+            productDisplay.innerHTML = ""; // Clear previous items
+
+            productData[category].forEach(item => {
+                const productItem = document.createElement("div");
+                productItem.className = "product-item";
+                productItem.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <div>
+                <h3>${item.name}</h3>
+                <p>Weight: ${item.weight}</p>
+                <p>Price: ${item.price} Rupees</p>
+            </div>
+            <div class="quantity-controls">
+                <button onclick="decreaseQuantity(this)">-1</button>
+                <span>0</span>
+                <button onclick="increaseQuantity(this)">+1</button>
+            </div>
+            <button class="add-to-cart" onclick="addToCart('${item.name}', ${item.price}, this)">Add to Cart</button>
+        `;
+                productDisplay.appendChild(productItem);
+            });
+            console.log(`${category} items displayed`); // Debugging line
+        }
+
+        // Add item to cart
+        function addToCart(name, price, button) {
+            const quantity = button.previousElementSibling.querySelector('span').textContent;
+            const quantityNumber = parseInt(quantity);
+            if (quantityNumber > 0) {
+                // Add item to cart
+                const cartItem = cart.find(item => item.name === name);
+                if (cartItem) {
+                    cartItem.quantity += quantityNumber;
+                } else {
+                    cart.push({ name, quantity: quantityNumber, price });
+                }
+
+                // Show notification
+                const notification = document.createElement("div");
+                notification.className = "added-notification";
+                notification.textContent = "Added to Cart";
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 2000); // Remove after 2 seconds
+
+                // Update cart display
+                updateCart();
+            }
+        }
+
+        // Update the cart display
+        function updateCart() {
+            const cartItems = document.getElementById("cartItems");
+            const cartTotal = document.getElementById("cartTotal");
+
+            cartItems.innerHTML = "";
+            let total = 0;
+
+            cart.forEach(item => {
+                const li = document.createElement("li");
+                const itemTotal = item.quantity * item.price;
+                total += itemTotal;
+                li.innerHTML = `
+            <p>Name: ${item.name}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Price: ${item.price} Rupees</p>
+            <p>Total: ${itemTotal} Rupees</p>
+        `;
+                cartItems.appendChild(li);
+            });
+
+            cartTotal.textContent = total;
+        }
+
+        // Toggle cart visibility
+        function toggleCart() {
+            const cartDropdown = document.getElementById("cartDropdown");
+            cartDropdown.classList.toggle("show");
+        }
+
+        // Close the cart when the close button is clicked
+        document.getElementById("closeCart").addEventListener("click", function () {
+            const cartDropdown = document.getElementById("cartDropdown");
+            cartDropdown.classList.remove("show");
+        });
+
+        // Increase or decrease quantity functions
+        function decreaseQuantity(button) {
+            const quantityElement = button.nextElementSibling;
+            let quantity = parseInt(quantityElement.textContent);
+            if (quantity > 0) {
+                quantityElement.textContent = quantity - 1;
+            }
+        }
+
+        function increaseQuantity(button) {
+            const quantityElement = button.previousElementSibling;
+            let quantity = parseInt(quantityElement.textContent);
+            quantityElement.textContent = quantity + 1;
+        }
+
+        // Event listener for the cart icon
+        document.querySelector(".cart svg").addEventListener("click", toggleCart);
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,237 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #DEF9C4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.container {
+  text-align: center;
+  padding: 20px; /* Reduced padding for mobile */
+  background-color: #9CDBA6;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  width: 90%; /* Increased width for mobile */
+  max-width: 800px; /* Increased max-width */
+}
+
+h1 {
+  color: #468585;
+  margin-bottom: 1.5em; /* Reduced margin for mobile */
+  font-size: 1.5em; /* Increased font size for mobile */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: bold;
+  text-align: left;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%; /* Full width */
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+/* Existing styles remain the same */
+
+/* New styles for button group */
+/* Existing styles remain the same */
+
+/* New styles for the login container */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align text and button */
+  width: 48%; /* Match width with Register button */
+  margin: 10px;
+}
+
+.existing-user {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+  color: #468585; /* Color to match theme */
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+button {
+  background-color: #50B498;
+  color: white;
+  padding: 1.5em 2em;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  
+  transition: background-color 0.3s ease;
+  width: 100%; /* Full width for buttons inside their containers */
+}
+
+button:hover {
+  background-color: #468585;
+}
+
+
+
+.reg{
+    border-radius: 10px;
+    background-color: #5bacac;
+    z-index: 1;
+    margin-right: 150px;
+    margin-left: 150px;
+}
+.reg h1{
+    z-index: 2;
+    color: aliceblue;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #DEF9C4;
+    opacity: 0.8;
+}
+
+.circle.large {
+    width: 250px; /* Decreased circle size */
+    height: 250px;
+    top: -100px;
+    left: -100px; /* Positioned on the top left */
+    background-color: #9CDBA6;
+}
+
+.circle.small {
+    width: 120px; /* Decreased circle size */
+    height: 120px;
+    bottom: -40px;
+    right: -40px; /* Positioned on the bottom right */
+    background-color: #50B498;
+}
+
+.diagonal-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.diagonal-lines::before,
+.diagonal-lines::after {
+  content: '';
+  position: absolute;
+  width: 10vw; /* Decreased diagonal lines size */
+  height: 1vw; /* Decreased diagonal lines size */
+  background-color: #468585;
+  border-radius: 10px;
+  transform: rotate(135deg);
+}
+
+.diagonal-lines::before {
+  top: 20px;
+  left: -15px;
+}
+
+.diagonal-lines::after {
+  top: 40px;
+  left: -30px;
+  width: 15vw; /* Decreased diagonal lines size */
+}
+
+/* Media queries for mobile devices */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    max-width: 600px;
+  }
+
+  button {
+    padding: 12px 15px;
+    font-size: 16px;
+  }
+
+  .reg {
+    margin-right: 50px;
+    margin-left: 50px;
+  }
+
+  .circle.large {
+    width: 200px;
+    height: 200px;
+    top: -80px;
+    left: -80px;
+  }
+
+  .circle.small {
+    width: 100px;
+    height: 100px;
+    bottom: -30px;
+    right: -30px;
+  }
+
+  .diagonal-lines {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    max-width: none;
+  }
+
+  button {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .reg {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+
+  .circle.large {
+    width: 150px;
+    height: 150px;
+    top: -60px;
+    left: -60px;
+  }
+
+  .circle.small {
+    width: 75px;
+    height: 75px;
+    bottom: -20px;
+    right: -20px;
+  }
+
+  .diagonal-lines {
+    display: none;
+  }
+}

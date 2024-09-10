@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Farmer Registration</title>
+    <link rel="stylesheet" href="farmer1.css">
+</head>
+
+<body>
+    <div class="background-elements">
+        <div class="circle large"></div>
+        <div class="circle small"></div>
+    </div>
+    <div class="container">
+        <div class="reg">
+            <h1>Farmer Registration</h1>
+        </div>
+        <form id="farmer-form">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="land-id">Land ID</label>
+            <input type="text" id="land-id" name="land-id" required>
+
+            <label for="aadhar">Aadhar Number</label>
+            <input type="text" id="aadhar" name="aadhar" required>
+
+            <label for="address">Address</label>
+            <textarea id="address" name="address" required></textarea>
+
+            <label for="pincode">Pincode</label>
+            <input type="text" id="pincode" name="pincode" required>
+
+            <div class="button-group">
+                <button type="submit" class="register-btn">Register</button>
+
+                <!-- Container for Login button and "Existing User" text -->
+                <div class="login-container">
+                    <p class="existing-user">Existing User</p>
+                    <button type="button" class="login-btn" id="login-btn">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCVuOQECJBYuNig1MluqyuD4_htZHFleew",
+            authDomain: "farm2mart-43cbf.firebaseapp.com",
+            databaseURL: "https://farm2mart-43cbf-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "farm2mart-43cbf",
+            storageBucket: "farm2mart-43cbf.appspot.com",
+            messagingSenderId: "158448621311",
+            appId: "1:158448621311:web:da32a5417da43f07ac1eca",
+            measurementId: "G-7E4JWZXCR9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        document.getElementById('farmer-form').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevents form submission
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const landId = document.getElementById('land-id').value;
+            const aadhar = document.getElementById('aadhar').value;
+            const address = document.getElementById('address').value;
+            const pincode = document.getElementById('pincode').value;
+
+            const formData = {
+                Name: name,
+                PhoneNumber: phone,
+                LandId: landId,
+                AadharNumber: aadhar,
+                Address: address,
+                Pincode: pincode
+            };
+
+            // Write data to Firebase
+            set(ref(database, 'farmer-details/' + name), formData)
+                .then(() => {
+                    // Alert message and redirection
+                    alert("Our Agent will visit you in the next 3 to 5 Business Days, your products must be available during the time of verification. After your items are verified, the product listing will be available. If your product doesn't reach our standard, the product listing cannot be done");
+
+                    // Delay redirection to ensure alert is visible
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html'; // Change this to the actual URL
+                    }, 3000); // Redirects after 3 seconds
+                })
+                .catch((error) => {
+                    console.error("Error writing to database:", error);
+                    alert("There was an error with the registration. Please try again.");
+                });
+        });
+
+        document.getElementById('login-btn').addEventListener('click', function () {
+            window.location.href = 'farmerlogin.html'; // Redirects to the login page
+        });
+    </script>
+</body>
+
+</html>

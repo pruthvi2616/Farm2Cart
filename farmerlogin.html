@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Login</title>
+  <link rel="stylesheet" href="farmerlogin.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="circle large"></div>
+        <div class="circle small"></div>
+    </div>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="login-form">
+      <label for="user-id">UserID:</label>
+      <input type="text" id="user-id" name="user-id" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+    <div class="forgot-section">
+      <a href="#" class="forgot-link">Forgot Username or Password?</a>
+    </div>
+  </div>
+  <script>const loginForm = document.getElementById('login-form');
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent the default form submission
+
+      const userId = document.getElementById('user-id').value;
+      const password = document.getElementById('password').value;
+
+      // You can add validation here if needed
+      // For now, we'll assume the credentials are correct and redirect to dashboard.html
+
+      window.location.href = 'dashboard.html'; // Redirect to dashboard.html
+    });</script>
+</body>
+</html>
